@@ -3,13 +3,14 @@ import CountdownHeader from '@/components/CountdownHeader.vue'
 import CountdownSegment from './components/CountdownSegment.vue'
 import { useNow } from '@vueuse/core'
 import { computed } from 'vue'
-const now = useNow()
 
+const now = useNow()
 const christmas = new Date('12/25/2022 00:00:00')
 
+const day = 1000 * 60 * 60 * 24
+
 const days = computed(() => {
-  const one_day = 1000 * 60 * 60 * 24
-  return (christmas.getTime() - now.value.getTime()) / one_day
+  return (christmas.getTime() - now.value.getTime()) / day
 })
 const daysRounded = computed(() => {
   return Math.floor(days.value)
@@ -18,7 +19,6 @@ const daysRounded = computed(() => {
 const hours = computed(() => {
   return 24 * (days.value - daysRounded.value)
 })
-
 const hoursRounded = computed(() => {
   return Math.floor(hours.value)
 })
@@ -26,7 +26,6 @@ const hoursRounded = computed(() => {
 const minutes = computed(() => {
   return 60 * (hours.value - hoursRounded.value)
 })
-
 const minutesRounded = computed(() => {
   return Math.floor(minutes.value)
 })
@@ -34,11 +33,11 @@ const minutesRounded = computed(() => {
 const seconds = computed(() => {
   return 60 * (minutes.value - minutesRounded.value)
 })
-
 const secondsRounded = computed(() => {
   return Math.floor(seconds.value)
 })
 </script>
+
 <template>
   <div class="w-full h-full flex justify-center items-center p-10">
     <div>
